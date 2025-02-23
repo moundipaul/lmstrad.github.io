@@ -145,6 +145,23 @@
             <p>LinkedIn : <a href="https://www.linkedin.com/in/stella-audrey-lamere-898585159/" target="_blank">Profil LinkedIn</a></p>
         </div>
     </section>
+    <!-- Section Devis ajoutée -->
+    <section id="devis">
+        <div class="container">
+            <h2>Demande de Devis</h2>
+            <p>Veuillez remplir le formulaire ci-dessous pour obtenir un devis.</p>
+            <!-- Exemple de formulaire -->
+            <form action="traitement_devis.php" method="post">
+                <label for="nom">Nom :</label><br>
+                <input type="text" id="nom" name="nom" required><br><br>
+                <label for="email">Email :</label><br>
+                <input type="email" id="email" name="email" required><br><br>
+                <label for="message">Message :</label><br>
+                <textarea id="message" name="message" rows="4" required></textarea><br><br>
+                <button type="submit">Envoyer</button>
+            </form>
+        </div>
+    </section>
     <footer>
         <p>&copy; 2025 LMStrad. Tous droits réservés.</p>
     </footer>
