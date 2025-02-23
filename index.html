@@ -35,7 +35,7 @@
             padding: 10px 20px;
         }
         nav a#devis-link {
-            background-color: #3498db;
+            background-color: #27ae60;
             padding: 10px 20px;
             border-radius: 5px;
         }
@@ -58,6 +58,18 @@
             margin-top: 20px;
         }
     </style>
+    <script>
+        function validatePhoneNumber() {
+            const phoneInput = document.getElementById('phone');
+            const phonePattern = /^[0-9]+$/;
+            if (!phonePattern.test(phoneInput.value)) {
+                alert("Veuillez entrer un numéro de téléphone valide.");
+                phoneInput.focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 <body>
     <header>
@@ -72,40 +84,36 @@
         <a href="#contact">Contact</a>
         <a href="#devis" id="devis-link">Devis</a>
     </nav>
-    <section id="services">
+    <section id="devis">
         <div class="container">
-            <h2>Nos Services</h2>
-            <p>✔ Traduction spécialisée (ingénierie, technique, juridique, médical, IT, marketing)</p>
-            <p>✔ Révision et correction</p>
-            <p>✔ Post-édition et validation LSO</p>
-            <p>✔ Gestion de projets multilingues</p>
-        </div>
-    </section>
-    <section id="expertise">
-        <div class="container">
-            <h2>Domaines d'Expertise</h2>
-            <p>🔹 Traduction de manuels techniques et d'ingénierie</p>
-            <p>🔹 Documentation médicale et essais cliniques</p>
-            <p>🔹 Traduction juridique : contrats, actes notariés, rapports</p>
-            <p>🔹 Localisation de sites web et logiciels</p>
-            <p>🔹 Évaluation IA et traduction de chaînes UI</p>
-        </div>
-    </section>
-    <section id="about">
-        <div class="container">
-            <h2>À propos</h2>
-            <p>Traductrice passionnée avec près de 5 ans d'expérience, diplômée d'un Master 2 en Traduction Spécialisée Multilingue (Université Grenoble Alpes).</p>
-            <p>Expérience en traduction indépendante et gestion de projets multilingues.</p>
-            <p>Maîtrise des outils de TAO : SDL Trados, MemoQ, Phrase, Wordfast, Smartcat.</p>
-            <p>Collaboration avec la Direction générale de la traduction de la Commission européenne.</p>
-        </div>
-    </section>
-    <section id="contact">
-        <div class="container">
-            <h2>Contact</h2>
-            <p>Email : <a href="mailto:stellalamere843@gmail.com">stellalamere843@gmail.com</a></p>
-            <p>Téléphone : +33 7 49 95 57 38</p>
-            <p>LinkedIn : <a href="https://www.linkedin.com/in/stella-audrey-lamere-898585159/" target="_blank">Profil LinkedIn</a></p>
+            <h2>Demande de devis</h2>
+            <form action="mailto:stellalamere843@gmail.com" method="post" enctype="multipart/form-data" onsubmit="return validatePhoneNumber()">
+                <input type="text" name="name" placeholder="Nom complet" required>
+                <input type="email" name="email" placeholder="Adresse e-mail" required>
+                <select name="country">
+                    <option value="">Sélectionner un pays</option>
+                    <option value="FR">France</option>
+                    <option value="BE">Belgique</option>
+                    <option value="CA">Canada</option>
+                    <option value="CH">Suisse</option>
+                    <option value="DE">Allemagne</option>
+                    <option value="UK">Royaume-Uni</option>
+                    <option value="US">États-Unis</option>
+                </select>
+                <input type="tel" id="phone" name="phone" placeholder="+33 " required>
+                <select name="service">
+                    <option value="traduction">Traduction</option>
+                    <option value="relecture">Relecture</option>
+                    <option value="interpretariat">Interprétariat</option>
+                    <option value="transcription">Transcription</option>
+                </select>
+                <input type="text" name="source_lang" placeholder="Langue source" required>
+                <input type="text" name="target_lang" placeholder="Langue cible" required>
+                <input type="date" name="deadline" placeholder="Date limite de livraison">
+                <textarea name="message" placeholder="Note complémentaire"></textarea>
+                <input type="file" name="file" accept=".doc,.docx,.pdf,.txt,.xls,.xlsx">
+                <button type="submit">Envoyer la demande</button>
+            </form>
         </div>
     </section>
     <footer>
