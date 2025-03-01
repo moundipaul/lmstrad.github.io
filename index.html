@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>LMStrad Traduction - Accueil</title>
   <style>
     /* Reset de base */
@@ -72,7 +72,7 @@
       color: #3498db;
     }
 
-    /* Section Hero */
+    /* Section Hero (Accueil) */
     .hero {
       position: relative;
       width: 100%;
@@ -123,21 +123,27 @@
       background-color: #2980b9;
     }
 
-    /* Section d'information (services, etc.) */
+    /* Sections */
     section {
       padding: 40px 20px;
       max-width: 1000px;
       margin: 0 auto;
+      text-align: center;
     }
-
     section h3 {
       font-size: 1.8rem;
       margin-bottom: 20px;
-      text-align: center;
     }
     section p {
       margin-bottom: 10px;
-      text-align: center;
+    }
+
+    /* Par défaut, on cache toutes les sections sauf #accueil (déclaré en HTML via .hero) */
+    #services,
+    #tarifs,
+    #contact,
+    #mentions {
+      display: none; /* Caché tant qu'on ne clique pas sur le menu */
     }
 
     /* Footer */
@@ -148,6 +154,7 @@
       font-size: 0.9rem;
       color: #666;
       border-top: 1px solid #ccc;
+      margin-top: 20px;
     }
 
     /* Styles pour la modale */
@@ -204,6 +211,23 @@
     }
   </style>
   <script>
+    // Cacher toutes les sections, sauf celle qu'on veut afficher
+    function showSection(sectionId) {
+      // Liste des sections à gérer
+      const sections = ['accueil', 'services', 'tarifs', 'contact', 'mentions'];
+
+      // Boucler sur chaque section
+      sections.forEach(id => {
+        // Si l'ID correspond à la section cliquée, on l'affiche, sinon on la cache
+        if (id === sectionId) {
+          document.getElementById(id).style.display = 'block';
+        } else {
+          document.getElementById(id).style.display = 'none';
+        }
+      });
+    }
+
+    // Chargement dynamique des pays
     async function loadCountries() {
       try {
         const response = await fetch('https://restcountries.com/v3.1/all');
@@ -225,6 +249,7 @@
       }
     }
 
+    // Validation du numéro de téléphone
     function validatePhoneNumber() {
       const phoneInput = document.getElementById('phone');
       const phonePattern = /^[0-9+]+$/;
@@ -245,12 +270,18 @@
     }
     window.onclick = function(event) {
       const modal = document.getElementById("contactModal");
-      if (event.target == modal) {
+      if (event.target === modal) {
         closeModal();
       }
     }
 
-    window.onload = loadCountries;
+    // Au chargement de la page
+    window.onload = function() {
+      loadCountries();
+      // Par défaut, on montre l'accueil, on masque les autres (déjà fait en CSS).
+      // Si vous voulez forcer l'affichage de #accueil en JS, vous pouvez le faire ici :
+      // showSection('accueil');
+    };
   </script>
 </head>
 <body>
@@ -264,20 +295,22 @@
     </a>
     <nav>
       <ul>
-        <li><a href="#accueil">Accueil</a></li>
-        <li><a href="#services">Services de traduction</a></li>
-        <li><a href="#tarifs">Modalités et tarifs</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="#mentions">Mentions légales</a></li>
+        <!-- On appelle showSection() au lieu de #ancre -->
+        <li><a href="javascript:void(0)" onclick="showSection('accueil')">Accueil</a></li>
+        <li><a href="javascript:void(0)" onclick="showSection('services')">Services de traduction</a></li>
+        <li><a href="javascript:void(0)" onclick="showSection('tarifs')">Modalités et tarifs</a></li>
+        <li><a href="javascript:void(0)" onclick="showSection('contact')">Contact</a></li>
+        <li><a href="javascript:void(0)" onclick="showSection('mentions')">Mentions légales</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- Section Hero -->
+  <!-- Section Hero (Accueil) -->
+  <!-- On lui donne l'ID "accueil" pour correspondre à showSection('accueil') -->
   <div class="hero" id="accueil">
     <div class="hero-content">
       <h2>LMS TRAD – La traduction qui vous connecte au monde</h2>
-      <p>Traduction de l’anglais et du l'allemand vers le français, chefferie de projet, post-édition, révision, relecture.</p>
+      <p>Traduction de l’anglais et de l'allemand vers le français, chefferie de projet, post-édition, révision, relecture.</p>
       <p>Traduction spécialisée (ingénierie, technique, juridique, médical, IT, marketing)</p>
       <a href="javascript:void(0)" class="cta-button" onclick="openModal()">Nous contacter</a>
     </div>
@@ -299,7 +332,7 @@
     <p>Nous offrons des tarifs compétitifs et un service de qualité adapté à vos besoins.</p>
   </section>
 
-  <!-- Section Contact (simple présentation) -->
+  <!-- Section Contact -->
   <section id="contact">
     <h3>Contact</h3>
     <p>Email : <a href="mailto:stellalamere843@gmail.com">stellalamere843@gmail.com</a></p>
@@ -348,6 +381,5 @@
   <footer>
     <p>&copy; 2025 LMStrad Traduction. Tous droits réservés.</p>
   </footer>
-
 </body>
 </html>
