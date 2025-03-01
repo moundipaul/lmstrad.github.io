@@ -17,29 +17,24 @@
       color: #333;
       background-color: #fff;
       line-height: 1.6;
-      /* Ajoutez un padding-top pour éviter que le contenu ne passe sous le header fixe */
-      padding-top: 80px; /* Ajustez selon la hauteur du header */
+      padding-top: 80px; /* Pour éviter que le contenu ne passe sous le header fixe */
     }
 
-    /* En-tête */
+    /* En-tête fixe */
     header {
-      /* Rendre le header fixe en haut de la page */
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       z-index: 999;
-
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 10px 20px;
       background-color: #fff;
       border-bottom: 1px solid #ccc;
-      /* Optionnel : une légère ombre pour distinguer le header du contenu */
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-
     /* Logo */
     header .logo {
       display: flex;
@@ -72,11 +67,54 @@
       color: #3498db;
     }
 
+    /* ===============================
+       Dropdown: "Nos services"
+       =============================== */
+    /* On encapsule l'élément de menu dans .dropdown */
+    nav ul li.dropdown {
+      position: relative; /* Nécessaire pour le positionnement absolu du sous-menu */
+    }
+
+    /* Sous-menu masqué par défaut */
+    nav ul li.dropdown ul.dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%; /* Juste en-dessous du menu parent */
+      left: 0;
+      background-color: #333; /* Fond noir comme l'exemple */
+      padding: 10px;
+      border-radius: 4px;
+      min-width: 200px; /* Largeur minimale */
+    }
+
+    /* Affichage du sous-menu au survol */
+    nav ul li.dropdown:hover ul.dropdown-content {
+      display: block;
+    }
+
+    /* Chaque élément du sous-menu */
+    nav ul li.dropdown ul.dropdown-content li {
+      margin: 0;
+      display: block;
+    }
+
+    /* Style des liens du sous-menu */
+    nav ul li.dropdown ul.dropdown-content li a {
+      color: #fff;         /* Texte blanc */
+      padding: 8px 12px;   /* Espacement */
+      display: block;
+      text-decoration: none;
+      white-space: nowrap; /* Évite le retour à la ligne inopiné */
+    }
+    nav ul li.dropdown ul.dropdown-content li a:hover {
+      background-color: #444; /* Légère nuance au survol */
+    }
+
     /* Section Hero (Accueil) */
     .hero {
       position: relative;
       width: 100%;
-      height: 80vh; /* Hauteur de la zone “hero” */
+      height: 80vh;
       background: url('https://via.placeholder.com/1200x800?text=Votre+image+de+montagnes') no-repeat center center;
       background-size: cover;
       display: flex;
@@ -91,12 +129,12 @@
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0,0,0,0.4); /* Voile sombre pour lisibilité du texte */
+      background: rgba(0,0,0,0.4);
       z-index: 0;
     }
     .hero-content {
       position: relative;
-      z-index: 1; /* Pour être au-dessus du voile */
+      z-index: 1;
       max-width: 800px;
       margin: 0 auto;
       padding: 0 20px;
@@ -123,30 +161,15 @@
       background-color: #2980b9;
     }
 
-    /* Sections */
+    /* Sections de contenu */
     section {
       padding: 40px 20px;
       max-width: 1000px;
       margin: 0 auto;
       text-align: center;
     }
-    section h3 {
-      font-size: 1.8rem;
-      margin-bottom: 20px;
-    }
-    section p {
-      margin-bottom: 10px;
-    }
 
-    /* Par défaut, on cache toutes les sections sauf #accueil (déclaré en HTML via .hero) */
-    #services,
-    #tarifs,
-    #contact,
-    #mentions {
-      display: none; /* Caché tant qu'on ne clique pas sur le menu */
-    }
-
-    /* Footer */
+    /* Pied de page */
     footer {
       background: #f8f8f8;
       text-align: center;
@@ -154,12 +177,11 @@
       font-size: 0.9rem;
       color: #666;
       border-top: 1px solid #ccc;
-      margin-top: 20px;
     }
 
-    /* Styles pour la modale */
+    /* Styles pour la modale (contact) */
     .modal {
-      display: none; /* Cachée par défaut */
+      display: none;
       position: fixed;
       z-index: 1000;
       left: 0;
@@ -187,8 +209,6 @@
       color: #333;
       cursor: pointer;
     }
-
-    /* Stylisation du formulaire */
     form input,
     form select,
     form textarea,
@@ -202,7 +222,7 @@
     }
     form button {
       background-color: #3498db;
-      color: white;
+      color: #fff;
       border: none;
       cursor: pointer;
     }
@@ -210,58 +230,9 @@
       background-color: #2980b9;
     }
   </style>
+
   <script>
-    // Cacher toutes les sections, sauf celle qu'on veut afficher
-    function showSection(sectionId) {
-      // Liste des sections à gérer
-      const sections = ['accueil', 'services', 'tarifs', 'contact', 'mentions'];
-
-      // Boucler sur chaque section
-      sections.forEach(id => {
-        // Si l'ID correspond à la section cliquée, on l'affiche, sinon on la cache
-        if (id === sectionId) {
-          document.getElementById(id).style.display = 'block';
-        } else {
-          document.getElementById(id).style.display = 'none';
-        }
-      });
-    }
-
-    // Chargement dynamique des pays
-    async function loadCountries() {
-      try {
-        const response = await fetch('https://restcountries.com/v3.1/all');
-        const countries = await response.json();
-        const countrySelect = document.getElementById('country');
-        
-        // Trier les pays par ordre alphabétique
-        countries.sort((a, b) => a.name.common.localeCompare(b.name.common));
-        
-        // Créer et ajouter chaque option
-        countries.forEach(country => {
-          const option = document.createElement('option');
-          option.value = country.cca2; // code alpha-2
-          option.textContent = country.name.common;
-          countrySelect.appendChild(option);
-        });
-      } catch (error) {
-        console.error("Erreur lors du chargement des pays :", error);
-      }
-    }
-
-    // Validation du numéro de téléphone
-    function validatePhoneNumber() {
-      const phoneInput = document.getElementById('phone');
-      const phonePattern = /^[0-9+]+$/;
-      if (!phonePattern.test(phoneInput.value)) {
-        alert("Veuillez entrer un numéro de téléphone valide.");
-        phoneInput.focus();
-        return false;
-      }
-      return true;
-    }
-
-    // Fonctions pour la modale
+    /* Fonctions pour la modale */
     function openModal() {
       document.getElementById("contactModal").style.display = "block";
     }
@@ -275,13 +246,42 @@
       }
     }
 
-    // Au chargement de la page
-    window.onload = function() {
-      loadCountries();
-      // Par défaut, on montre l'accueil, on masque les autres (déjà fait en CSS).
-      // Si vous voulez forcer l'affichage de #accueil en JS, vous pouvez le faire ici :
-      // showSection('accueil');
-    };
+    // Exemple de validation de téléphone
+    function validatePhoneNumber() {
+      const phoneInput = document.getElementById('phone');
+      const phonePattern = /^[0-9+]+$/;
+      if (!phonePattern.test(phoneInput.value)) {
+        alert("Veuillez entrer un numéro de téléphone valide.");
+        phoneInput.focus();
+        return false;
+      }
+      return true;
+    }
+
+    // Chargement dynamique de la liste des pays (optionnel)
+    async function loadCountries() {
+      try {
+        const response = await fetch('https://restcountries.com/v3.1/all');
+        const countries = await response.json();
+        const countrySelect = document.getElementById('country');
+        
+        // Trier les pays par ordre alphabétique
+        countries.sort((a, b) => a.name.common.localeCompare(b.name.common));
+        
+        // Créer et ajouter chaque option
+        countries.forEach(country => {
+          const option = document.createElement('option');
+          option.value = country.cca2;
+          option.textContent = country.name.common;
+          countrySelect.appendChild(option);
+        });
+      } catch (error) {
+        console.error("Erreur lors du chargement des pays :", error);
+      }
+    }
+
+    // On charge la liste des pays au démarrage
+    window.onload = loadCountries;
   </script>
 </head>
 <body>
@@ -289,24 +289,39 @@
   <!-- En-tête -->
   <header>
     <a href="#" class="logo">
-      <!-- Remplacez le src par le logo voulu -->
       <img src="logo.png" alt="Logo">
       <h1>LMStrad Traduction</h1>
     </a>
     <nav>
       <ul>
-        <!-- On appelle showSection() au lieu de #ancre -->
-        <li><a href="javascript:void(0)" onclick="showSection('accueil')">Accueil</a></li>
-        <li><a href="javascript:void(0)" onclick="showSection('services')">Services de traduction</a></li>
-        <li><a href="javascript:void(0)" onclick="showSection('tarifs')">Modalités et tarifs</a></li>
-        <li><a href="javascript:void(0)" onclick="showSection('contact')">Contact</a></li>
-        <li><a href="javascript:void(0)" onclick="showSection('mentions')">Mentions légales</a></li>
+        <li><a href="#accueil">Accueil</a></li>
+        
+        <!-- Remplacement de l'ancien lien "Services de traduction" 
+             par un dropdown "Nos services" -->
+        <li class="dropdown">
+          <a href="javascript:void(0)">Nos services</a>
+          <ul class="dropdown-content">
+            <li><a href="#">Traduction</a></li>
+            <li><a href="#">Transcréation</a></li>
+            <li><a href="#">Rédaction</a></li>
+            <li><a href="#">Interprétation</a></li>
+            <li><a href="#">Localisation</a></li>
+            <li><a href="#">Sous-titres</a></li>
+            <li><a href="#">Relecture et édition</a></li>
+            <li><a href="#">Les talents vocaux</a></li>
+            <li><a href="#">Services de traduction en braille</a></li>
+            <li><a href="#">Conseil en internationalisation</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#tarifs">Modalités et tarifs</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#mentions">Mentions légales</a></li>
       </ul>
     </nav>
   </header>
 
   <!-- Section Hero (Accueil) -->
-  <!-- On lui donne l'ID "accueil" pour correspondre à showSection('accueil') -->
   <div class="hero" id="accueil">
     <div class="hero-content">
       <h2>LMS TRAD – La traduction qui vous connecte au monde</h2>
@@ -315,15 +330,6 @@
       <a href="javascript:void(0)" class="cta-button" onclick="openModal()">Nous contacter</a>
     </div>
   </div>
-
-  <!-- Section Services -->
-  <section id="services">
-    <h3>Services de traduction</h3>
-    <p>✔ Traduction spécialisée (ingénierie, juridique, médical, IT, marketing)</p>
-    <p>✔ Révision et correction</p>
-    <p>✔ Post-édition et validation LSO</p>
-    <p>✔ Gestion de projets multilingues</p>
-  </section>
 
   <!-- Section Modalités et tarifs -->
   <section id="tarifs">
@@ -356,10 +362,12 @@
       <form action="mailto:stellalamere843@gmail.com" method="post" enctype="multipart/form-data" onsubmit="return validatePhoneNumber()">
         <input type="text" name="name" placeholder="Nom complet" required>
         <input type="email" name="email" placeholder="Adresse e-mail" required>
+        
+        <!-- Liste des pays (chargés dynamiquement) -->
         <select name="country" id="country">
           <option value="">Sélectionner un pays</option>
-          <!-- Les pays sont chargés dynamiquement par loadCountries() -->
         </select>
+        
         <input type="tel" id="phone" name="phone" placeholder="+33 " required>
         <select name="service">
           <option value="traduction">Traduction</option>
