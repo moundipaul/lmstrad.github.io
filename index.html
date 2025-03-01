@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LMStrad - Traduction</title>
+  <title>MBogu Traduction - Accueil</title>
   <style>
     /* Reset de base */
     * {
@@ -14,12 +14,12 @@
 
     body {
       font-family: Arial, sans-serif;
-      background-color: #fff;
       color: #333;
+      background-color: #fff;
       line-height: 1.6;
     }
 
-    /* En-tête et navigation */
+    /* En-tête */
     header {
       display: flex;
       align-items: center;
@@ -28,6 +28,8 @@
       background-color: #fff;
       border-bottom: 1px solid #ccc;
     }
+
+    /* Logo */
     header .logo {
       display: flex;
       align-items: center;
@@ -42,27 +44,32 @@
       font-size: 1.2rem;
       font-weight: normal;
     }
+
+    /* Navigation principale */
     nav ul {
       list-style: none;
       display: flex;
       gap: 20px;
     }
+
     nav a {
       text-decoration: none;
       color: #333;
       font-weight: 500;
       transition: color 0.3s ease;
     }
+
     nav a:hover {
       color: #3498db;
     }
 
-    /* Section Hero (image de fond) */
+    /* Section Hero */
     .hero {
       position: relative;
       width: 100%;
-      height: 70vh; /* Ajustez la hauteur selon vos préférences */
-      background: url('https://via.placeholder.com/1200x800?text=Votre+image+de+montagnes') no-repeat center center/cover;
+      height: 80vh; /* Hauteur de la zone “hero” */
+      background: url('https://via.placeholder.com/1200x800?text=Votre+image+de+montagnes') no-repeat center center;
+      background-size: cover;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -75,12 +82,12 @@
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0,0,0,0.4); /* Voile pour améliorer la lisibilité */
+      background: rgba(0,0,0,0.4); /* Voile sombre pour lisibilité du texte */
       z-index: 0;
     }
     .hero-content {
       position: relative;
-      z-index: 1; /* Au-dessus du voile */
+      z-index: 1; /* Pour être au-dessus du voile */
       max-width: 800px;
       margin: 0 auto;
       padding: 0 20px;
@@ -107,38 +114,36 @@
       background-color: #2980b9;
     }
 
-    /* Sections de contenu */
+    /* Section d'information (services, etc.) */
     section {
       padding: 40px 20px;
       max-width: 1000px;
       margin: 0 auto;
-      text-align: center;
-    }
-    section h2 {
-      font-size: 1.8rem;
-      margin-bottom: 20px;
-    }
-    .container {
-      margin-top: 20px;
-      background: #fff;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
-    /* Pied de page */
+    section h3 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    section p {
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    /* Footer */
     footer {
       background: #f8f8f8;
-      color: #666;
       text-align: center;
       padding: 15px;
       font-size: 0.9rem;
+      color: #666;
       border-top: 1px solid #ccc;
-      margin-top: 20px;
     }
 
     /* Styles pour la modale */
     .modal {
-      display: none;
+      display: none; /* Cachée par défaut */
       position: fixed;
       z-index: 1000;
       left: 0;
@@ -166,7 +171,7 @@
       color: #333;
       cursor: pointer;
     }
-    /* Formulaire de la modale */
+    /* Stylisation du formulaire */
     form input,
     form select,
     form textarea,
@@ -180,7 +185,7 @@
     }
     form button {
       background-color: #3498db;
-      color: #fff;
+      color: white;
       border: none;
       cursor: pointer;
     }
@@ -201,8 +206,7 @@
         // Créer et ajouter chaque option
         countries.forEach(country => {
           const option = document.createElement('option');
-          // Ici, on utilise le code alpha-2 comme valeur par exemple
-          option.value = country.cca2;
+          option.value = country.cca2; // code alpha-2
           option.textContent = country.name.common;
           countrySelect.appendChild(option);
         });
@@ -224,13 +228,13 @@
 
     // Fonctions pour la modale
     function openModal() {
-      document.getElementById("devisModal").style.display = "block";
+      document.getElementById("contactModal").style.display = "block";
     }
     function closeModal() {
-      document.getElementById("devisModal").style.display = "none";
+      document.getElementById("contactModal").style.display = "none";
     }
     window.onclick = function(event) {
-      const modal = document.getElementById("devisModal");
+      const modal = document.getElementById("contactModal");
       if (event.target == modal) {
         closeModal();
       }
@@ -244,107 +248,96 @@
   <!-- En-tête -->
   <header>
     <a href="#" class="logo">
-      <img src="logo.png" alt="LMStrad Logo">
-      <h1>LMStrad</h1>
+      <!-- Remplacez le src par le logo voulu -->
+      <img src="logo.png" alt="Logo">
+      <h1>MBogu Traduction</h1>
     </a>
     <nav>
       <ul>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#expertise">Expertise</a></li>
-        <li><a href="#about">À propos</a></li>
+        <li><a href="#accueil">Accueil</a></li>
+        <li><a href="#services">Services de traduction</a></li>
+        <li><a href="#tarifs">Modalités et tarifs</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li><a href="javascript:void(0)" onclick="openModal()">Devis</a></li>
+        <li><a href="#mentions">Mentions légales</a></li>
       </ul>
     </nav>
   </header>
 
   <!-- Section Hero -->
-  <div class="hero">
+  <div class="hero" id="accueil">
     <div class="hero-content">
-      <h2>Bienvenue sur LMStrad</h2>
-      <p>Traduction spécialisée, révision et gestion de projets multilingues</p>
-      <a href="javascript:void(0)" class="cta-button" onclick="openModal()">Demande de devis</a>
+      <h2>Un processus de traduction complet<br>pour des traductions de qualité</h2>
+      <p>Traduction de l’espagnol et du français vers le français, révision, mise en page, relecture finale.</p>
+      <p>Traduction juridique, institutionnelle, scientifique, technique, éditoriale et touristique.</p>
+      <a href="javascript:void(0)" class="cta-button" onclick="openModal()">Nous contacter</a>
     </div>
   </div>
 
-  <!-- Services -->
+  <!-- Section Services -->
   <section id="services">
-    <h2>Nos Services</h2>
-    <div class="container">
-      <p>✔ Traduction spécialisée (ingénierie, technique, juridique, médical, IT, marketing)</p>
-      <p>✔ Révision et correction</p>
-      <p>✔ Post-édition et validation LSO</p>
-      <p>✔ Gestion de projets multilingues</p>
-    </div>
+    <h3>Services de traduction</h3>
+    <p>✔ Traduction spécialisée (ingénierie, juridique, médical, IT, marketing)</p>
+    <p>✔ Révision et correction</p>
+    <p>✔ Post-édition et validation LSO</p>
+    <p>✔ Gestion de projets multilingues</p>
   </section>
 
-  <!-- Expertise -->
-  <section id="expertise">
-    <h2>Domaines d'Expertise</h2>
-    <div class="container">
-      <p>🔹 Traduction de manuels techniques et d'ingénierie</p>
-      <p>🔹 Documentation médicale et essais cliniques</p>
-      <p>🔹 Traduction juridique : contrats, actes notariés, rapports</p>
-      <p>🔹 Localisation de sites web et logiciels</p>
-      <p>🔹 Évaluation IA et traduction de chaînes UI</p>
-    </div>
+  <!-- Section Modalités et tarifs -->
+  <section id="tarifs">
+    <h3>Modalités et tarifs</h3>
+    <p>Chaque projet est unique, n’hésitez pas à nous contacter pour un devis personnalisé.</p>
+    <p>Nous offrons des tarifs compétitifs et un service de qualité adapté à vos besoins.</p>
   </section>
 
-  <!-- À propos -->
-  <section id="about">
-    <h2>À propos</h2>
-    <div class="container">
-      <p>Traductrice passionnée avec près de 5 ans d'expérience, diplômée d'un Master 2 en Traduction Spécialisée Multilingue (Université Grenoble Alpes).</p>
-      <p>Expérience en traduction indépendante et gestion de projets multilingues.</p>
-      <p>Maîtrise des outils de TAO : SDL Trados, MemoQ, Phrase, Wordfast, Smartcat.</p>
-      <p>Collaboration avec la Direction générale de la traduction de la Commission européenne.</p>
-    </div>
-  </section>
-
-  <!-- Contact -->
+  <!-- Section Contact (simple présentation) -->
   <section id="contact">
-    <h2>Contact</h2>
-    <div class="container">
-      <p>Email : <a href="mailto:stellalamere843@gmail.com">stellalamere843@gmail.com</a></p>
-      <p>Téléphone : +33 7 49 95 57 38</p>
-      <p>LinkedIn : <a href="https://www.linkedin.com/in/stella-audrey-lamere-898585159/" target="_blank">Profil LinkedIn</a></p>
-    </div>
+    <h3>Contact</h3>
+    <p>Email : <a href="mailto:stellalamere843@gmail.com">stellalamere843@gmail.com</a></p>
+    <p>Téléphone : +33 7 49 95 57 38</p>
+    <p>LinkedIn : <a href="https://www.linkedin.com/in/stella-audrey-lamere-898585159/" target="_blank">Profil LinkedIn</a></p>
+    <p><strong>Ou bien, cliquez sur le bouton ci-dessous pour nous écrire directement :</strong></p>
+    <a href="javascript:void(0)" class="cta-button" onclick="openModal()">Nous contacter</a>
   </section>
-  
-  <!-- Modale pour le devis -->
-  <div id="devisModal" class="modal">
+
+  <!-- Section Mentions légales -->
+  <section id="mentions">
+    <h3>Mentions légales</h3>
+    <p>Veuillez insérer ici vos informations légales (raison sociale, adresse, SIRET, etc.).</p>
+  </section>
+
+  <!-- Modale de contact -->
+  <div id="contactModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
-      <div class="container">
-        <h2>Demande de devis</h2>
-        <form action="mailto:stellalamere843@gmail.com" method="post" enctype="multipart/form-data" onsubmit="return validatePhoneNumber()">
-          <input type="text" name="name" placeholder="Nom complet" required>
-          <input type="email" name="email" placeholder="Adresse e-mail" required>
-          <!-- Liste des pays générée dynamiquement -->
-          <select name="country" id="country">
-            <option value="">Sélectionner un pays</option>
-          </select>
-          <input type="tel" id="phone" name="phone" placeholder="+33 " required>
-          <select name="service">
-            <option value="traduction">Traduction</option>
-            <option value="relecture">Relecture</option>
-            <option value="interpretariat">Interprétariat</option>
-            <option value="transcription">Transcription</option>
-          </select>
-          <input type="text" name="source_lang" placeholder="Langue source" required>
-          <input type="text" name="target_lang" placeholder="Langue cible" required>
-          <input type="date" name="deadline" placeholder="Date limite de livraison">
-          <textarea name="message" placeholder="Note complémentaire"></textarea>
-          <input type="file" name="file" accept=".doc,.docx,.pdf,.txt,.xls,.xlsx">
-          <button type="submit">Envoyer</button>
-        </form>
-      </div>
+      <h2>Nous contacter</h2>
+      <form action="mailto:stellalamere843@gmail.com" method="post" enctype="multipart/form-data" onsubmit="return validatePhoneNumber()">
+        <input type="text" name="name" placeholder="Nom complet" required>
+        <input type="email" name="email" placeholder="Adresse e-mail" required>
+        <select name="country" id="country">
+          <option value="">Sélectionner un pays</option>
+          <!-- Les pays sont chargés dynamiquement par loadCountries() -->
+        </select>
+        <input type="tel" id="phone" name="phone" placeholder="+33 " required>
+        <select name="service">
+          <option value="traduction">Traduction</option>
+          <option value="relecture">Relecture</option>
+          <option value="interpretariat">Interprétariat</option>
+          <option value="transcription">Transcription</option>
+        </select>
+        <input type="text" name="source_lang" placeholder="Langue source" required>
+        <input type="text" name="target_lang" placeholder="Langue cible" required>
+        <input type="date" name="deadline" placeholder="Date limite de livraison">
+        <textarea name="message" placeholder="Note complémentaire"></textarea>
+        <input type="file" name="file" accept=".doc,.docx,.pdf,.txt,.xls,.xlsx">
+        <button type="submit">Envoyer</button>
+      </form>
     </div>
   </div>
-  
+
   <!-- Pied de page -->
   <footer>
-    <p>&copy; 2025 LMStrad. Tous droits réservés.</p>
+    <p>&copy; 2025 MBogu Traduction. Tous droits réservés.</p>
   </footer>
+
 </body>
 </html>
